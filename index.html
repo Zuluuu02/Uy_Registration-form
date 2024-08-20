@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Writing DOM</title>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const form = document.createElement('form');
+
+const firstNameLabel = document.createElement('label');
+firstNameLabel.textContent = 'First Name: ';
+const firstNameInput = document.createElement('input');
+firstNameInput.type = 'text';
+firstNameInput.name = 'firstName';
+firstNameInput.required = true;
+form.appendChild(firstNameLabel);
+form.appendChild(firstNameInput);
+form.appendChild(document.createElement('br'));
+
+const lastNameLabel = document.createElement('label');
+lastNameLabel.textContent = 'Last Name: ';
+const lastNameInput = document.createElement('input');
+lastNameInput.type = 'text';
+lastNameInput.name = 'lastName';
+lastNameInput.required = true;
+form.appendChild(lastNameLabel);
+form.appendChild(lastNameInput);
+form.appendChild(document.createElement('br'));
+
+const emailLabel = document.createElement('label');
+emailLabel.textContent = 'Email: ';
+const emailInput = document.createElement('input');
+emailInput.type = 'email';
+emailInput.name = 'email';
+emailInput.required = true;
+
+const emailWarning = document.createElement('span');
+emailWarning.style.color = 'red';
+emailWarning.style.display = 'none';
+emailWarning.textContent = 'Invalid email address!';
+
+emailInput.oninput = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+(\.[^\s@]+)?$/;
+    if (!emailPattern.test(emailInput.value)) {
+        emailWarning.style.display = 'inline';
+    } else {
+        emailWarning.style.display = 'none';
+    }
+};
+
+form.appendChild(emailLabel);
+form.appendChild(emailInput);
+form.appendChild(emailWarning);
+form.appendChild(document.createElement('br'));
+
+const passwordLabel = document.createElement('label');
+passwordLabel.textContent = 'Password: ';
+const passwordInput = document.createElement('input');
+passwordInput.type = 'password';
+passwordInput.name = 'password';
+passwordInput.required = true;
+form.appendChild(passwordLabel);
+form.appendChild(passwordInput);
+form.appendChild(document.createElement('br'));
+
+const confirmPasswordLabel = document.createElement('label');
+confirmPasswordLabel.textContent = 'Confirm Password: ';
+const confirmPasswordInput = document.createElement('input');
+confirmPasswordInput.type = 'password';
+confirmPasswordInput.name = 'confirmPassword';
+confirmPasswordInput.required = true;
+form.appendChild(confirmPasswordLabel);
+form.appendChild(confirmPasswordInput);
+form.appendChild(document.createElement('br'));
+
+const submitButton = document.createElement('button');
+submitButton.textContent = 'Register';
+submitButton.type = 'submit';
+
+submitButton.onclick = (event) => {
+    event.preventDefault();
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        alert('Passwords do not match!');
+    } else if (emailWarning.style.display === 'inline') {
+        alert('Please enter a valid email address.');
+    } else {
+        alert('Registration successful!');
+    }
+};
+
+form.appendChild(submitButton);
+
+document.getElementById('app').appendChild(form);
+
+</script>
+
+</body>
+</html>
